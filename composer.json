@@ -1,0 +1,16 @@
+{
+    "name": "piotrmarczewski/task-1-banking-system",
+    "description": "Simple banking system",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Piotr Marczewski",
+            "email": "p.marczewski@infinitiis.pl"
+        }
+    ],
+    "require": {}
+}
