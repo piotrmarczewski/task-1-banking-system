@@ -6,7 +6,7 @@ namespace App;
 abstract class Account
 {
     protected float $balance = 0;
-    
+
     public function __construct(
         protected string $accountNumber, 
         protected string $ownerName, 
@@ -29,6 +29,11 @@ abstract class Account
     public function getBalance(): float
     {
         return $this->balance;
+    }
+
+    public function getAccountNumber(): string
+    {
+        return $this->accountNumber;
     }
 
     abstract public function withdraw(float $amount): void;
