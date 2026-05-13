@@ -7,65 +7,78 @@ use App\BusinessAccount;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$account1 = new PersonalAccount(
+$personalAccount = new PersonalAccount(
     '50525142854892382989011056',
     'Jan Nowak'
 );
 
-$account2 = new BusinessAccount(
+$businessAccount = new BusinessAccount(
     '60859875910552853192355214',
     'Firma X'
 );
 
+$savingsAccount = new SavingsAccount(
+    '24866721375761599084379838',
+    'Anna Nowak',
+    2.5
+);
+
 try {
-    echo "[Konto ".$account1->getAccountNumber()."] Wpłata 200 zł"."<br>".PHP_EOL;
-    $account1->deposit(200);
-    echo "[Konto ".$account1->getAccountNumber()."] Saldo: {$account1->getBalance()}"."<br>".PHP_EOL;
+    echo "[Konto ".$personalAccount->getAccountNumber()."] Wpłata 200 zł"."<br>".PHP_EOL;
+    $personalAccount->deposit(200);
+    echo "[Konto ".$personalAccount->getAccountNumber()."] Saldo: {$personalAccount->getBalance()}"."<br>".PHP_EOL;
 
-    echo "[Konto ".$account1->getAccountNumber()."] Wypłata 50 zł"."<br>".PHP_EOL;
+    echo "[Konto ".$personalAccount->getAccountNumber()."] Wypłata 50 zł"."<br>".PHP_EOL;
     try {
-        $account1->withdraw(50);
+        $personalAccount->withdraw(50);
     } catch (InsufficientFundsException $e) {
         echo "[BŁĄD] " . $e->getMessage() . ""."<br>".PHP_EOL;
     }
-    echo "[Konto ".$account1->getAccountNumber()."] Saldo: {$account1->getBalance()}"."<br>".PHP_EOL;
+    echo "[Konto ".$personalAccount->getAccountNumber()."] Saldo: {$personalAccount->getBalance()}"."<br>".PHP_EOL;
 
-    echo "[Konto ".$account1->getAccountNumber()."] Wypłata 300 zł"."<br>".PHP_EOL;
+    echo "[Konto ".$personalAccount->getAccountNumber()."] Wypłata 300 zł"."<br>".PHP_EOL;
     try {
-        $account1->withdraw(300);
+        $personalAccount->withdraw(300);
     } catch (InsufficientFundsException $e) {
         echo "[BŁĄD] " . $e->getMessage() . ""."<br>".PHP_EOL;
     }
-    echo "[Konto ".$account1->getAccountNumber()."] Saldo: {$account1->getBalance()}"."<br>".PHP_EOL;
+    echo "[Konto ".$personalAccount->getAccountNumber()."] Saldo: {$personalAccount->getBalance()}"."<br>".PHP_EOL;
     
-    echo "[Przelew] ".$account1->getAccountNumber()." -> ".$account2->getAccountNumber().": 400 zł"."<br>".PHP_EOL;
+    echo "[Przelew] ".$personalAccount->getAccountNumber()." -> ".$businessAccount->getAccountNumber().": 400 zł"."<br>".PHP_EOL;
     try {
-        $account1->transferTo($account2, 400);
+        $personalAccount->transferTo($businessAccount, 400);
     } catch (InsufficientFundsException $e) {
         echo "[BŁĄD] " . $e->getMessage() . ""."<br>".PHP_EOL;
     }
-    echo "[Konto ".$account1->getAccountNumber()."] Saldo: {$account1->getBalance()}"."<br>".PHP_EOL;
-    echo "[Konto ".$account2->getAccountNumber()."] Saldo: {$account2->getBalance()}"."<br>".PHP_EOL;
+    echo "[Konto ".$personalAccount->getAccountNumber()."] Saldo: {$personalAccount->getBalance()}"."<br>".PHP_EOL;
+    echo "[Konto ".$businessAccount->getAccountNumber()."] Saldo: {$businessAccount->getBalance()}"."<br>".PHP_EOL;
 
-    echo "[Konto ".$account2->getAccountNumber()."] Wypłata 1000 zł"."<br>".PHP_EOL;
+    echo "[Konto ".$businessAccount->getAccountNumber()."] Wypłata 1000 zł"."<br>".PHP_EOL;
     try {
-        $account2->withdraw(1000);
+        $businessAccount->withdraw(1000);
     } catch (InsufficientFundsException $e) {
         echo "[BŁĄD] " . $e->getMessage() . ""."<br>".PHP_EOL;
     }
-    echo "[Konto ".$account2->getAccountNumber()."] Saldo: {$account2->getBalance()}"."<br>".PHP_EOL;
+    echo "[Konto ".$businessAccount->getAccountNumber()."] Saldo: {$businessAccount->getBalance()}"."<br>".PHP_EOL;
 
-    echo "[Konto ".$account2->getAccountNumber()."] Wypłata 12000 zł"."<br>".PHP_EOL;
+    echo "[Konto ".$businessAccount->getAccountNumber()."] Wypłata 12000 zł"."<br>".PHP_EOL;
     try {
-        $account2->withdraw(12000);
+        $businessAccount->withdraw(12000);
     } catch (InsufficientFundsException $e) {
         echo "[BŁĄD] " . $e->getMessage() . ""."<br>".PHP_EOL;
     }
-    echo "[Konto ".$account2->getAccountNumber()."] Saldo: {$account2->getBalance()}"."<br>".PHP_EOL;
+    echo "[Konto ".$businessAccount->getAccountNumber()."] Saldo: {$businessAccount->getBalance()}"."<br>".PHP_EOL;
+    
+    echo "[Konto ".$savingsAccount->getAccountNumber()."] Wpłata 1000 zł"."<br>".PHP_EOL;
+    $savingsAccount->deposit(1000);
+
+    $savingsAccount->applyInterest();
+    echo "[Konto ".$savingsAccount->getAccountNumber()."] Saldo: {$savingsAccount->getBalance()}"."<br>".PHP_EOL;
 } catch (InsufficientFundsException $e) {
     echo "[BŁĄD] " . $e->getMessage() . ""."<br>".PHP_EOL;
 }
 
 echo "<br>".PHP_EOL."--- Stan końcowy ---"."<br>".PHP_EOL;
-echo "Konto ".$account1->getAccountNumber()." ({$account1->getBalance()})"."<br>".PHP_EOL;
-echo "Konto ".$account2->getAccountNumber()." ({$account2->getBalance()})"."<br>".PHP_EOL;
+echo "Konto ".$personalAccount->getAccountNumber()." ({$personalAccount->getBalance()})"."<br>".PHP_EOL;
+echo "Konto ".$businessAccount->getAccountNumber()." ({$businessAccount->getBalance()})"."<br>".PHP_EOL;
+echo "Konto ".$savingsAccount->getAccountNumber()." ({$savingsAccount->getBalance()})"."<br>".PHP_EOL;
