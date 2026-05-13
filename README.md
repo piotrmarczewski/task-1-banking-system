@@ -6,6 +6,7 @@ Prosty system bankowy napisany w PHP.
 
 - Konto osobiste (bez debetu)
 - Konto firmowe (z limitem debetu)
+- Konto oszczędnościowe
 - Wpłaty i wypłaty
 - Przelewy między kontami
 - Obsługa błędu braku środków (wyjątek)
@@ -15,7 +16,7 @@ Prosty system bankowy napisany w PHP.
 ## Wymagania
 
 - PHP 8.1+
-- Composer (opcjonalnie, ale zalecany)
+- Composer
 
 ---
 
